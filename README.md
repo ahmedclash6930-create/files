@@ -1,237 +1,228 @@
-# files
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>المكتبة الدراسية - أحمد حاتم أسعد</title>
+    <title>قراصنة الدراسة - نظام الجدولة</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap');
+        
+        :root {
+            --straw-hat: #FF6B00;
+            --navy-blue: #00308F;
+            --gold: #FFD700;
+            --red: #FF0000;
+            --sea: #00B4D8;
+        }
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
         }
-
+        
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #333;
-            line-height: 1.6;
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
             min-height: 100vh;
-            padding: 20px;
-            direction: rtl;
+            color: white;
         }
-
+        
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
         .container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
-            overflow: hidden;
+            padding: 20px;
         }
-
-        .header {
-            background: linear-gradient(135deg, #2c3e50, #34495e);
-            color: white;
-            padding: 40px;
+        
+        header {
             text-align: center;
-            position: relative;
-        }
-
-        .creator-signature {
-            background: linear-gradient(135deg, #e74c3c, #c0392b);
-            color: white;
-            padding: 15px 30px;
-            border-radius: 50px;
-            display: inline-block;
-            font-size: 1.3em;
-            font-weight: bold;
-            margin-bottom: 20px;
-            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
-        }
-
-        .header h1 {
-            font-size: 2.8em;
-            margin-bottom: 10px;
-            background: linear-gradient(45deg, #3498db, #2ecc71);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .header p {
-            font-size: 1.3em;
-            opacity: 0.9;
-            margin-bottom: 10px;
-        }
-
-        .subtitle {
-            color: #bdc3c7;
-            font-size: 1.1em;
-        }
-
-        .folders-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-            padding: 50px;
-        }
-
-        .folder {
-            background: #f8f9fa;
+            padding: 40px 0;
+            background: rgba(0, 48, 143, 0.8);
             border-radius: 20px;
-            padding: 35px;
-            text-align: center;
-            transition: all 0.3s ease;
-            border: 4px solid;
-            cursor: pointer;
-            text-decoration: none;
-            color: inherit;
-            display: block;
+            margin-bottom: 30px;
+            border: 3px solid var(--gold);
             position: relative;
             overflow: hidden;
         }
-
-        .folder::before {
-            content: '';
+        
+        header::before {
+            content: "🏴‍☠️";
+            font-size: 80px;
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 5px;
-            background: currentColor;
+            top: 10px;
+            left: 20px;
             opacity: 0.3;
         }
-
-        .folder:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-        }
-
-        .folder-number {
+        
+        header::after {
+            content: "⚓";
+            font-size: 80px;
             position: absolute;
-            top: 15px;
-            left: 15px;
-            background: currentColor;
+            top: 10px;
+            right: 20px;
+            opacity: 0.3;
+        }
+        
+        h1 {
+            font-size: 3em;
+            color: var(--gold);
+            text-shadow: 3px 3px 0 var(--red);
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.5em;
             color: white;
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 1.1em;
-        }
-
-        .folder-icon {
-            font-size: 3.5em;
             margin-bottom: 20px;
-            margin-top: 10px;
         }
-
-        .folder h3 {
-            color: #2c3e50;
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .upload-section, .schedule-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px solid var(--straw-hat);
+        }
+        
+        .upload-area {
+            border: 3px dashed var(--sea);
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+        
+        .upload-area:hover {
+            background: rgba(0, 180, 216, 0.2);
+            transform: scale(1.02);
+        }
+        
+        .upload-icon {
+            font-size: 60px;
             margin-bottom: 15px;
-            font-size: 1.6em;
-            font-weight: bold;
         }
-
-        .folder p {
-            color: #7f8c8d;
-            font-size: 1em;
-            margin-bottom: 20px;
+        
+        .file-list {
+            margin-top: 20px;
         }
-
-        .files-list {
-            background: white;
-            border-radius: 12px;
-            padding: 20px;
-            margin-top: 15px;
-            border: 2px dashed #bdc3c7;
-        }
-
+        
         .file-item {
+            background: rgba(255, 107, 0, 0.2);
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 15px;
-            margin: 8px 0;
-            background: #ecf0f1;
+        }
+        
+        .file-size {
+            color: var(--gold);
+            font-size: 0.9em;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--gold);
+            font-weight: bold;
+        }
+        
+        input, select, button {
+            width: 100%;
+            padding: 12px;
+            border: none;
             border-radius: 8px;
-            transition: all 0.2s ease;
+            font-size: 16px;
         }
-
-        .file-item:hover {
-            background: #d5dbdb;
-            transform: translateX(-5px);
+        
+        input, select {
+            background: rgba(255, 255, 255, 0.9);
         }
-
-        .file-name {
-            font-weight: bold;
-            color: #2c3e50;
-        }
-
-        .file-type {
-            background: #3498db;
+        
+        button {
+            background: linear-gradient(45deg, var(--straw-hat), var(--red));
             color: white;
-            padding: 4px 12px;
-            border-radius: 15px;
-            font-size: 0.8em;
-        }
-
-        /* ألوان مختلفة لكل مادة */
-        .folder-1 { border-color: #e74c3c; color: #e74c3c; }
-        .folder-2 { border-color: #27ae60; color: #27ae60; }
-        .folder-3 { border-color: #3498db; color: #3498db; }
-        .folder-4 { border-color: #9b59b6; color: #9b59b6; }
-        .folder-5 { border-color: #e67e22; color: #e67e22; }
-        .folder-6 { border-color: #1abc9c; color: #1abc9c; }
-        .folder-7 { border-color: #f39c12; color: #f39c12; }
-
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            padding: 30px 50px;
-            background: #34495e;
-            color: white;
-        }
-
-        .stat-item {
-            text-align: center;
-            padding: 20px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 15px;
-            backdrop-filter: blur(10px);
-        }
-
-        .stat-number {
-            font-size: 2.5em;
             font-weight: bold;
-            margin-bottom: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid var(--gold);
         }
-
-        .stat-label {
-            font-size: 1em;
-            opacity: 0.9;
+        
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 107, 0, 0.4);
         }
-
-        .footer {
-            background: #2c3e50;
-            color: #bdc3c7;
+        
+        .schedule-display {
+            margin-top: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .day-schedule {
+            background: rgba(0, 48, 143, 0.6);
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid var(--straw-hat);
+        }
+        
+        .day-header {
+            color: var(--gold);
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .study-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px;
+            margin: 5px 0;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .pirate-theme {
             text-align: center;
-            padding: 30px;
-            font-size: 1.1em;
+            margin: 20px 0;
         }
-
+        
+        .theme-text {
+            font-size: 1.2em;
+            color: var(--gold);
+            font-style: italic;
+        }
+        
         @media (max-width: 768px) {
-            .folders-grid {
+            .main-content {
                 grid-template-columns: 1fr;
-                padding: 20px;
             }
             
-            .header h1 {
+            h1 {
                 font-size: 2em;
             }
         }
@@ -239,183 +230,224 @@
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <div class="creator-signature">
-                📚 صنع بواسطة أحمد حاتم أسعد
-            </div>
-            <h1>المكتبة الدراسية الشاملة</h1>
-            <p>تنظيم المواد الدراسية ومذكرات الطالب</p>
-            <div class="subtitle">كل ما تحتاجه للدراسة في مكان واحد</div>
+        <header>
+            <h1>قراصنة الدراسة 🏴‍☠️</h1>
+            <div class="subtitle">اكتشف كنز المعرفة مع طاقم قبعات القش!</div>
+        </header>
+        
+        <div class="pirate-theme">
+            <div class="theme-text">"الرجل الذي لا يدرس شيئاً لا يختلف عن الرجل الذي لا يستطيع القراءة!" - المارد</div>
         </div>
-
-        <div class="folders-grid">
-            <!-- مادة الحيوان -->
-            <a href="1-حيوان/" class="folder folder-1">
-                <div class="folder-number">1</div>
-                <div class="folder-icon">🐾</div>
-                <h3>علم الحيوان</h3>
-                <p>دراسة الكائنات الحيوانية وتصنيفها</p>
-                <div class="files-list">
-                    <div class="file-item">
-                        <span class="file-name">البيانات الرئيسية</span>
-                        <span class="file-type">MD</span>
-                    </div>
-                    <div class="file-item">
-                        <span class="file-name">ملاحظات السكاشن</span>
-                        <span class="file-type">MD</span>
+        
+        <div class="main-content">
+            <div class="upload-section">
+                <h2>⏫ رفع ملفات الدراسة</h2>
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-icon">📚</div>
+                    <div>انقر أو اسحب الملفات هنا</div>
+                    <div style="font-size: 0.9em; margin-top: 10px; opacity: 0.8;">
+                        يدعم: PDF, Word, PowerPoint, الصور
                     </div>
                 </div>
-            </a>
-
-            <!-- مادة النبات -->
-            <a href="2-نبات/" class="folder folder-2">
-                <div class="folder-number">2</div>
-                <div class="folder-icon">🌿</div>
-                <h3>علم النبات</h3>
-                <p>دراسة الحياة النباتية والتركيب الضوئي</p>
-                <div class="files-list">
-                    <div class="file-item">
-                        <span class="file-name">البيانات الرئيسية</span>
-                        <span class="file-type">MD</span>
-                    </div>
-                    <div class="file-item">
-                        <span class="file-name">ملاحظات السكاشن</span>
-                        <span class="file-type">MD</span>
-                    </div>
+                
+                <div class="file-list" id="fileList">
+                    <!-- الملفات المرفوعة تظهر هنا -->
                 </div>
-            </a>
-
-            <!-- مادة الفيزياء -->
-            <a href="3-فيزياء/" class="folder folder-3">
-                <div class="folder-number">3</div>
-                <div class="folder-icon">⚡</div>
-                <h3>الفيزياء</h3>
-                <p>قوانين الحركة والطاقة والمادة</p>
-                <div class="files-list">
-                    <div class="file-item">
-                        <span class="file-name">البيانات الرئيسية</span>
-                        <span class="file-type">MD</span>
-                    </div>
-                    <div class="file-item">
-                        <span class="file-name">ملاحظات السكاشن</span>
-                        <span class="file-type">MD</span>
-                    </div>
+                
+                <div class="form-group">
+                    <label for="studyDays">🎯 عدد أيام الدراسة:</label>
+                    <input type="number" id="studyDays" min="1" max="365" value="7">
                 </div>
-            </a>
-
-            <!-- مادة الكيمياء -->
-            <a href="4-كيمياء/" class="folder folder-4">
-                <div class="folder-number">4</div>
-                <div class="folder-icon">🧪</div>
-                <h3>الكيمياء</h3>
-                <p>تفاعلات العناصر والمركبات الكيميائية</p>
-                <div class="files-list">
-                    <div class="file-item">
-                        <span class="file-name">البيانات الرئيسية</span>
-                        <span class="file-type">MD</span>
-                    </div>
-                    <div class="file-item">
-                        <span class="file-name">ملاحظات السكاشن</span>
-                        <span class="file-type">MD</span>
-                    </div>
+                
+                <div class="form-group">
+                    <label for="dailyHours">⏰ ساعات الدراسة اليومية:</label>
+                    <select id="dailyHours">
+                        <option value="1">1 ساعة</option>
+                        <option value="2">2 ساعات</option>
+                        <option value="3" selected>3 ساعات</option>
+                        <option value="4">4 ساعات</option>
+                        <option value="5">5 ساعات</option>
+                        <option value="6">6 ساعات</option>
+                    </select>
                 </div>
-            </a>
-
-            <!-- مادة الرياضيات -->
-            <a href="5-رياضيات/" class="folder folder-5">
-                <div class="folder-number">5</div>
-                <div class="folder-icon">📐</div>
-                <h3>الرياضيات</h3>
-                <p>الجبر، الهندسة، التفاضل والتكامل</p>
-                <div class="files-list">
-                    <div class="file-item">
-                        <span class="file-name">البيانات الرئيسية</span>
-                        <span class="file-type">MD</span>
-                    </div>
-                    <div class="file-item">
-                        <span class="file-name">ملاحظات السكاشن</span>
-                        <span class="file-type">MD</span>
-                    </div>
-                </div>
-            </a>
-
-            <!-- مادة تكنولوجيا المعلومات -->
-            <a href="6-تكنولوجيا-المعلومات/" class="folder folder-6">
-                <div class="folder-number">6</div>
-                <div class="folder-icon">💻</div>
-                <h3>تكنولوجيا المعلومات</h3>
-                <p>البرمجة، الشبكات، قواعد البيانات</p>
-                <div class="files-list">
-                    <div class="file-item">
-                        <span class="file-name">البيانات الرئيسية</span>
-                        <span class="file-type">MD</span>
-                    </div>
-                    <div class="file-item">
-                        <span class="file-name">ملاحظات السكاشن</span>
-                        <span class="file-type">MD</span>
-                    </div>
-                </div>
-            </a>
-
-            <!-- متطلب جامعة -->
-            <a href="7-متطلب-جامعة/" class="folder folder-7">
-                <div class="folder-number">7</div>
-                <div class="folder-icon">🎓</div>
-                <h3>متطلب جامعة</h3>
-                <p>متطلبات الجامعة العامة واللغة</p>
-                <div class="files-list">
-                    <div class="file-item">
-                        <span class="file-name">البيانات الرئيسية</span>
-                        <span class="file-type">MD</span>
-                    </div>
-                    <div class="file-item">
-                        <span class="file-name">ملاحظات السكاشن</span>
-                        <span class="file-type">MD</span>
-                    </div>
-                </div>
-            </a>
-        </div>
-
-        <div class="stats">
-            <div class="stat-item">
-                <div class="stat-number">7</div>
-                <div class="stat-label">مواد دراسية</div>
+                
+                <button onclick="generateSchedule()">⚡ إنشاء جدول الدراسة!</button>
             </div>
-            <div class="stat-item">
-                <div class="stat-number">14</div>
-                <div class="stat-label">ملف منظم</div>
+            
+            <div class="schedule-section">
+                <h2>📅 جدول الدراسة</h2>
+                <div class="schedule-display" id="scheduleDisplay">
+                    <div style="text-align: center; padding: 40px; opacity: 0.7;">
+                        سيظهر جدول الدراسة هنا بعد رفع الملفات
+                    </div>
+                </div>
+                
+                <button onclick="downloadSchedule()" style="margin-top: 15px; background: linear-gradient(45deg, var(--navy-blue), var(--sea));">
+                    💾 تحميل الجدول
+                </button>
             </div>
-            <div class="stat-item">
-                <div class="stat-number">2</div>
-                <div class="stat-label">ملف لكل مادة</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number">100%</div>
-                <div class="stat-label">جاهز للاستخدام</div>
-            </div>
-        </div>
-
-        <div class="footer">
-            <p>📖 مكتبة الطالب المميز - صنع بكل فخر بواسطة أحمد حاتم أسعد</p>
-            <p>© 2024 جميع الحقوق محفوظة</p>
         </div>
     </div>
 
     <script>
-        // إضافة تأثيرات تفاعلية
-        document.addEventListener('DOMContentLoaded', function() {
-            const folders = document.querySelectorAll('.folder');
-            
-            folders.forEach(folder => {
-                folder.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-8px) scale(1.02)';
-                });
-                
-                folder.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateY(0) scale(1)';
-                });
-            });
+        let uploadedFiles = [];
+        
+        // نظام رفع الملفات
+        const uploadArea = document.getElementById('uploadArea');
+        const fileList = document.getElementById('fileList');
+        
+        uploadArea.addEventListener('click', () => {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.multiple = true;
+            input.accept = '.pdf,.doc,.docx,.ppt,.pptx,.jpg,.jpeg,.png,.txt';
+            input.onchange = handleFileSelect;
+            input.click();
         });
+        
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.style.background = 'rgba(0, 180, 216, 0.3)';
+        });
+        
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.style.background = '';
+        });
+        
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.style.background = '';
+            handleFiles(e.dataTransfer.files);
+        });
+        
+        function handleFileSelect(e) {
+            handleFiles(e.target.files);
+        }
+        
+        function handleFiles(files) {
+            for (let file of files) {
+                uploadedFiles.push({
+                    name: file.name,
+                    size: file.size,
+                    type: file.type
+                });
+            }
+            updateFileList();
+        }
+        
+        function updateFileList() {
+            fileList.innerHTML = '';
+            uploadedFiles.forEach((file, index) => {
+                const fileItem = document.createElement('div');
+                fileItem.className = 'file-item';
+                fileItem.innerHTML = `
+                    <span>${file.name}</span>
+                    <span class="file-size">${formatFileSize(file.size)}</span>
+                `;
+                fileList.appendChild(fileItem);
+            });
+        }
+        
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+        
+        // نظام إنشاء الجدول
+        function generateSchedule() {
+            if (uploadedFiles.length === 0) {
+                alert('🏴‍☠️ يا رفيق! تحتاج لرفع بعض ملفات الدراسة أولاً!');
+                return;
+            }
+            
+            const studyDays = parseInt(document.getElementById('studyDays').value);
+            const dailyHours = parseInt(document.getElementById('dailyHours').value);
+            
+            const scheduleDisplay = document.getElementById('scheduleDisplay');
+            scheduleDisplay.innerHTML = '';
+            
+            // خوارزمية ذكية لتوزيع الملفات
+            const filesPerDay = Math.ceil(uploadedFiles.length / studyDays);
+            const studyMinutes = dailyHours * 60;
+            const minutesPerFile = Math.floor(studyMinutes / filesPerDay);
+            
+            for (let day = 1; day <= studyDays; day++) {
+                const daySchedule = document.createElement('div');
+                daySchedule.className = 'day-schedule';
+                
+                const dayHeader = document.createElement('div');
+                dayHeader.className = 'day-header';
+                dayHeader.innerHTML = `اليوم ${day} <span>${dailyHours} ساعات</span>`;
+                daySchedule.appendChild(dayHeader);
+                
+                const startIndex = (day - 1) * filesPerDay;
+                const endIndex = Math.min(startIndex + filesPerDay, uploadedFiles.length);
+                
+                for (let i = startIndex; i < endIndex; i++) {
+                    if (i >= uploadedFiles.length) break;
+                    
+                    const studyItem = document.createElement('div');
+                    studyItem.className = 'study-item';
+                    
+                    const estimatedTime = Math.max(30, Math.min(120, minutesPerFile));
+                    const startTime = calculateStartTime((i - startIndex) * estimatedTime);
+                    
+                    studyItem.innerHTML = `
+                        <span>${uploadedFiles[i].name}</span>
+                        <span>${startTime} - ${estimatedTime} دقيقة</span>
+                    `;
+                    daySchedule.appendChild(studyItem);
+                }
+                
+                // إضافة استراحة
+                if (endIndex - startIndex > 0) {
+                    const breakItem = document.createElement('div');
+                    breakItem.className = 'study-item';
+                    breakItem.style.background = 'rgba(255, 215, 0, 0.3)';
+                    breakItem.innerHTML = `
+                        <span>☕ استراحة شاي</span>
+                        <span>15 دقيقة</span>
+                    `;
+                    daySchedule.appendChild(breakItem);
+                }
+                
+                scheduleDisplay.appendChild(daySchedule);
+            }
+        }
+        
+        function calculateStartTime(minutesOffset) {
+            const startHour = 9; // بداية الدراسة 9 صباحاً
+            const totalMinutes = startHour * 60 + minutesOffset;
+            const hours = Math.floor(totalMinutes / 60);
+            const minutes = totalMinutes % 60;
+            return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+        }
+        
+        function downloadSchedule() {
+            if (!document.querySelector('.day-schedule')) {
+                alert('🏴‍☠️ تحتاج لإنشاء جدول أولاً يا رفيق!');
+                return;
+            }
+            
+            const scheduleData = {
+                files: uploadedFiles,
+                schedule: document.getElementById('scheduleDisplay').innerHTML,
+                generatedAt: new Date().toLocaleString()
+            };
+            
+            const blob = new Blob([JSON.stringify(scheduleData, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'جدول_الدراسة_قراصنة.json';
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            alert('✅ تم تحميل جدول الدراسة! إلى الأمام نحو الكنز! 🏴‍☠️');
+        }
     </script>
 </body>
 </html>
